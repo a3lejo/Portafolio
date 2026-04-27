@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel — Dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ─── Variables — Light ──────────────────────────────── */
+    :root {
+      --color-bg: #f9f8f5;
+      --color-surface: #ffffff;
+      --color-text-primary: #1a1a18;
+      --color-text-secondary: #7a7870;
+      --color-border: rgba(26, 26, 24, 0.12);
+      --color-border-hover: rgba(26, 26, 24, 0.25);
+      --font-serif: 'DM Serif Display', serif;
+      --font-mono: 'DM Mono', monospace;
+      --blue-50:  #E6F1FB;
+      --blue-200: #85B7EB;
+      --blue-400: #378ADD;
+      --blue-600: #185FA5;
+      --blue-800: #0C447C;
+    }
+
+    /* ─── Variables — Dark ───────────────────────────────── */
+    [data-theme="dark"] {
+      --color-bg: #111110;
+      --color-surface: #1c1c1a;
+      --color-text-primary: #e8e6df;
+      --color-text-secondary: #6b6860;
+      --color-border: rgba(232, 230, 223, 0.10);
+      --color-border-hover: rgba(232, 230, 223, 0.22);
+      --blue-50:  #0c1e30;
+      --blue-200: #185FA5;
+      --blue-400: #378ADD;
+      --blue-600: #85B7EB;
+      --blue-800: #B5D4F4;
+    }
+
+    /* ─── Base ───────────────────────────────────────────── */
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─── Layout ─────────────────────────────────────────── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem 0;
+      border-bottom: 0.5px solid var(--color-border);
+      margin-bottom: 5rem;
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--color-text-secondary);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* ─── Theme toggle ───────────────────────────────────── */
+    .theme-toggle {
+      background: none;
+      border: 0.5px solid var(--color-border-hover);
+      border-radius: 2px;
+      padding: 5px 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .theme-toggle:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-text-secondary);
+    }
+
+    /* ─── Hero ───────────────────────────────────────────── */
+    .hero {
+      margin-bottom: 6rem;
+    }
+
+    .hero-tag {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-400);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--color-text-secondary);
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--color-text-secondary);
+      max-width: 460px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--blue-400);
+      border-bottom: 0.5px solid var(--blue-400);
+      padding-bottom: 2px;
+      transition: opacity 0.15s;
+    }
+
+    .hero-cta:hover {
+      opacity: 0.6;
+    }
+
+    /* ─── Secciones ──────────────────────────────────────── */
+    section {
+      margin-bottom: 5rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue-400);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 0.5px solid var(--color-border);
+    }
+
+    /* ─── Proyectos ──────────────────────────────────────── */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr auto;
+      align-items: start;
+      gap: 1rem;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid var(--color-border);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .project-item:hover {
+      opacity: 0.6;
+    }
+
+    .project-num {
+      font-size: 12px;
+      color: var(--blue-400);
+      padding-top: 2px;
+    }
+
+    .project-title {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      background: var(--blue-50);
+      border: 0.5px solid var(--blue-200);
+      border-radius: 2px;
+      color: var(--blue-600);
+    }
+
+    .project-arrow {
+      font-size: 16px;
+      color: var(--blue-400);
+      padding-top: 2px;
+    }
+
+    /* ─── Sobre mí ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--color-text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .skill-name {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .skill-bar-wrap {
+      flex: 1;
+      height: 2px;
+      background: var(--color-border);
+      border-radius: 2px;
+    }
+
+    .skill-bar {
+      height: 2px;
+      background: var(--blue-400);
+      border-radius: 2px;
+    }
+
+    /* ─── Contacto / Footer ──────────────────────────────── */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 0.5px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .contact-label {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .contact-email {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 24px;
+      letter-spacing: 0.01em;
+      color: var(--blue-400);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .contact-links a {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+      border-bottom: 0.5px solid var(--color-border);
+      padding-bottom: 2px;
+      transition: color 0.15s;
+    }
+
+    .contact-links a:hover {
+      color: var(--blue-400);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-name {
+        font-size: 44px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Nav -->
+    <nav>
+      <span class="nav-logo">Daniel — Dev</span>
+      <div class="nav-links">
+        <a href="#proyectos">proyectos</a>
+        <a href="#sobre-mi">sobre mí</a>
+        <a href="#contacto">contacto</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">claro</button>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-tag">Desarrollador de Software</p>
+      <h1 class="hero-name">
+        Hola, soy<br>
+        <em>Daniel Barrera.</em>
+      </h1>
+      <p class="hero-bio">
+        Estudiante de ingeniería apasionado por construir software limpio
+        y bien estructurado. Trabajo con Java, estructuras de datos y
+        sistemas que funcionan de verdad.
+      </p>
+      <a href="#proyectos" class="hero-cta">ver proyectos →</a>
+    </section>
+
+    <!-- Proyectos -->
+    <section id="proyectos">
+      <p class="section-label">Proyectos seleccionados</p>
+      <div class="project-list">
+
+        <div class="project-item">
+          <span class="project-num">01</span>
+          <div>
+            <p class="project-title">Árbol de Búsqueda Binaria</p>
+            <p class="project-desc">
+              Implementación completa de BST con inserción, eliminación
+              y recorridos inorder, preorder y postorder.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Java</span>
+              <span class="tag">Estructuras de datos</span>
+            </div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+
+        <div class="project-item">
+          <span class="project-num">02</span>
+          <div>
+            <p class="project-title">Proyecto 2</p>
+            <p class="project-desc">
+              Descripción de tu proyecto. Cámbiala cuando tengas uno nuevo.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">En progreso</span>
+            </div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+
+        <div class="project-item">
+          <span class="project-num">03</span>
+          <div>
+            <p class="project-title">Portafolio Web</p>
+            <p class="project-desc">
+              Este mismo sitio — diseñado y construido desde cero
+              con HTML, CSS y JS puro.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML / CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sobre mí -->
+    <section id="sobre-mi">
+      <p class="section-label">Sobre mí</p>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Soy estudiante de ingeniería en Bucaramanga, con interés en el
+            desarrollo de software, algoritmos y sistemas bien diseñados.
+          </p>
+          <p>
+            Cuando no estoy codificando, estudio física — dinámica,
+            cinemática y todo lo que tenga ecuaciones.
+          </p>
+        </div>
+        <div class="skills-list">
+          <div class="skill-row">
+            <span class="skill-name">Java</span>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="width: 80%"></div></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Estructuras de datos</span>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="width: 75%"></div></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">HTML / CSS</span>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="width: 60%"></div></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">JavaScript</span>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="width: 45%"></div></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar-wrap"><div class="skill-bar" style="width: 40%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <footer id="contacto">
+      <div>
+        <p class="contact-label">¿Tienes un proyecto en mente?</p>
+        <p class="contact-email">danielalejandrobarrera999@gmail.com</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="#">CV</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    // Aplica el tema guardado al cargar
+    const saved = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', saved);
+    toggle.textContent = saved === 'dark' ? 'claro' : 'oscuro';
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.textContent = next === 'dark' ? 'claro' : 'oscuro';
+    });
+  </script>
+</body>
+</html>
